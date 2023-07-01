@@ -3,7 +3,7 @@
   <head>
     <title>Quiz Application</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer type="module" src="src/questions.js"></script>
+    <script defer type="module" src="src/controller.js"></script>
   </head>
   <body>
     <div id="quiz-container">
@@ -18,7 +18,7 @@
       </div>
       <div id="timer">Time Left: <span id="time-left">60</span> seconds</div>
       <div class="question">
-        <p class="questions"><span>(1)</span> What is JavaScript?</p>
+        <!-- <p class="questions"><span>(1)</span> What is JavaScript?</p>
         <div class="options">
           <button class="option-button" id="option-1">
             <span>A</span> Option A
@@ -32,10 +32,10 @@
           <button class="option-button" id="option-4">
             <span>D</span> Option D
           </button>
-        </div>
+        </div> -->
       </div>
 
-      <button id="submit-btn" disabled>Submit</button>
+      <button id="submit-btn">Submit</button>
       <div id="score"></div>
       <div id="feedback"></div>
       <button id="next-btn">Next Question</button>
