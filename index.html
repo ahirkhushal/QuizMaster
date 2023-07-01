@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer type="module" src="src/questions.js"></script>
+  </head>
+  <body>
+    <div id="quiz-container">
+      <h1>Quiz Application</h1>
+      <div id="question-container">
+        <h2 id="question"></h2>
+        <ul id="options"></ul>
+      </div>
+      <div id="progress">
+        Question <span id="current-question">1</span> of
+        <span id="total-questions">25</span>
+      </div>
+      <div id="timer">Time Left: <span id="time-left">60</span> seconds</div>
+      <div class="question">
+        <p class="questions"><span>(1)</span> What is JavaScript?</p>
+        <div class="options">
+          <button class="option-button" id="option-1">
+            <span>A</span> Option A
+          </button>
+          <button class="option-button" id="option-2">
+            <span>B</span> Option B
+          </button>
+          <button class="option-button" id="option-3">
+            <span>C</span> Option C
+          </button>
+          <button class="option-button" id="option-4">
+            <span>D</span> Option D
+          </button>
+        </div>
+      </div>
+
+      <button id="submit-btn" disabled>Submit</button>
+      <div id="score"></div>
+      <div id="feedback"></div>
+      <button id="next-btn">Next Question</button>
+    </div>
+  </body>
+</html>
