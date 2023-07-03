@@ -1,14 +1,15 @@
 class questionView {
   _data;
   _parentEl = document.querySelector(".question");
-  _btnSUmbit = document.querySelector("#submit-btn");
-  _btnoptions = document.querySelector(".options");
+  _btnSubmit = document.querySelector("#submit-btn");
+  _btnOption;
   //   _submit = document.querySelector("#");
   render(data) {
     this._data = data;
-    console.log(this._data);
+
     const markup = this._generateMarkup();
     this._parentEl.insertAdjacentHTML("afterbegin", markup);
+    this._btnOption = document.querySelector(".options");
   }
 
   _generateMarkup() {
@@ -29,24 +30,59 @@ class questionView {
     </div>`;
   }
 
-  addselectButtonhandler(handler) {
+  addselectButtonhandler() {
     this._parentEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".option-button");
+      if (!btn) return;
+      // console.log();
+
+      Array.from(this._btnOption.children).forEach((element) => {
+        if (element.classList.value === "bgcolor") {
+          element.classList.remove("bgcolor");
+          element.classList.add("option-button");
+        }
+      });
+
+      btn.classList.add("bgcolor");
+      btn.classList.remove("option-button");
+
+      this._btnSubmit.disabled = false;
+      this.addSubmitHandler(btn);
+    });
+  }
+  addSubmitHandler(btn) {
+    this._btnSubmit.addEventListener("click", () => {
       const textContent = btn.textContent.trim();
-      const number = textContent.slice(textContent.indexOf(" ") + 1);
-      if (this._data[0].answer === number) {
+      const answer = textContent.slice(textContent.indexOf(" ") + 1);
+      // console.log(this._data[0].answer);
+
+      if (this._data[0].answer === answer) {
         btn.style.backgroundColor = "blue";
         btn.style.color = "white";
       }
 
-      this.addhandler(handler);
-    });
-  }
-  addhandler(handler) {
-    this._btnSUmbit.addEventListener("click", () => {
-      console.log("ok");
+      if (this._data[0].answer !== answer) {
+        Array.from(this._btnOption.children).forEach((el) => {
+          const textContent = el.textContent.trim();
+          const answer1 = textContent.slice(textContent.indexOf(" ") + 1);
+
+          if (answer1 === this._data[0].answer) {
+            el.style.backgroundColor = "blue";
+            el.style.color = "white";
+          }
+          if (this._data[0].answer !== answer1) {
+            el.style.backgroundColor = "red";
+            el.style.color = "white";
+            el.classList.add("wireframe");
+            setTimeout(() => {
+              el.classList.remove("wireframe");
+            }, 500);
+          }
+        });
+      }
     });
   }
 }
 
 export default new questionView();
+// this._btnSubmit.disabled = false;
