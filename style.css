@@ -107,7 +107,7 @@ h1 {
   padding: 5px;
   border: 2px solid black;
   color: white;
-  background-color: #ff5583;
+  background-color: black;
   border-radius: 40px;
 }
 .scoretext {
@@ -175,4 +175,21 @@ button.wireframe {
 
 .bgcolor span {
   margin-right: 10px;
+}
+
+@keyframes blink {
+  0% {
+    background-color: #ff0f0f;
+  }
+  50% {
+    background-color: black;
+  }
+  100% {
+    background-color: #ff0f0f;
+  }
+}
+
+.timer-blink {
+  animation: blink 1s linear infinite;
+  animation-delay: 0.5s;
 }
