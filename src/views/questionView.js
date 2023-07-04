@@ -3,7 +3,7 @@ class questionView {
   _parentEl = document.querySelector(".question");
   _btnSubmit = document.querySelector("#submit-btn");
   _btnOption;
-  //   _submit = document.querySelector("#");
+
   render(data) {
     this._data = data;
 
@@ -34,19 +34,18 @@ class questionView {
     this._parentEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".option-button");
       if (!btn) return;
-      // console.log();
 
       Array.from(this._btnOption.children).forEach((element) => {
         if (element.classList.value === "bgcolor") {
           element.classList.remove("bgcolor");
           element.classList.add("option-button");
         }
-      });
 
+        // element.disabled = true;
+      });
       btn.classList.add("bgcolor");
       btn.classList.remove("option-button");
 
-      this._btnSubmit.disabled = false;
       this.addSubmitHandler(btn);
     });
   }
@@ -54,35 +53,38 @@ class questionView {
     this._btnSubmit.addEventListener("click", () => {
       const textContent = btn.textContent.trim();
       const answer = textContent.slice(textContent.indexOf(" ") + 1);
-      // console.log(this._data[0].answer);
 
-      if (this._data[0].answer === answer) {
-        btn.style.backgroundColor = "blue";
-        btn.style.color = "white";
-      }
+      Array.from(this._btnOption.children).forEach((el) => {
+        if (this._data[0].answer === answer) {
+          btn.style.backgroundColor = "blue";
+          btn.style.color = "white";
+          console.log((el.disabled = true));
+        }
+        if (
+          this._data[0].answer !== answer &&
+          btn.classList.contains("bgcolor")
+        ) {
+          btn.style.backgroundColor = "red";
+          btn.style.color = "white";
+          btn.classList.add("wireframe");
+          setTimeout(() => {
+            btn.classList.remove("wireframe");
+          }, 500);
 
-      if (this._data[0].answer !== answer) {
-        Array.from(this._btnOption.children).forEach((el) => {
+          console.log(el);
           const textContent = el.textContent.trim();
-          const answer1 = textContent.slice(textContent.indexOf(" ") + 1);
+          const answerEl = textContent.slice(textContent.indexOf(" ") + 1);
 
-          if (answer1 === this._data[0].answer) {
+          if (answerEl === this._data[0].answer) {
             el.style.backgroundColor = "blue";
             el.style.color = "white";
           }
-          if (this._data[0].answer !== answer1) {
-            el.style.backgroundColor = "red";
-            el.style.color = "white";
-            el.classList.add("wireframe");
-            setTimeout(() => {
-              el.classList.remove("wireframe");
-            }, 500);
-          }
-        });
-      }
+
+          el.disabled = true;
+        }
+      });
     });
   }
 }
 
 export default new questionView();
-// this._btnSubmit.disabled = false;
