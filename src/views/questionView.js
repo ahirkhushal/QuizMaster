@@ -13,7 +13,7 @@ class questionView {
   }
 
   _generateMarkup() {
-    return `<p class="questions"><span>${this._data.length}) </span> ${this._data[0].question}</p>
+    return `<p class="questions"><span>(${this._data[0].questionNo}) </span> ${this._data[0].question}</p>
     <div class="options">
       <button class="option-button" id="option-1">
         <span>A)</span> ${this._data[0].options[0]}
@@ -58,7 +58,7 @@ class questionView {
         if (this._data[0].answer === answer) {
           btn.style.backgroundColor = "blue";
           btn.style.color = "white";
-          console.log((el.disabled = true));
+          el.disabled = true;
         }
         if (
           this._data[0].answer !== answer &&
@@ -71,7 +71,6 @@ class questionView {
             btn.classList.remove("wireframe");
           }, 500);
 
-          console.log(el);
           const textContent = el.textContent.trim();
           const answerEl = textContent.slice(textContent.indexOf(" ") + 1);
 

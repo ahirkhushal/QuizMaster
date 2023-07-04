@@ -130,6 +130,10 @@ h1 {
   border-radius: 40px;
 }
 
+.questions span {
+  margin-right: 10px;
+}
+
 @keyframes wireframeAnimation {
   0% {
     transform: translateX(0);
