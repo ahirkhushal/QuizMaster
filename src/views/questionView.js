@@ -30,7 +30,8 @@ class questionView {
     </div>`;
   }
 
-  addselectButtonhandler() {
+  addselectButtonhandler(handler) {
+    handler();
     this._parentEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".option-button");
       if (!btn) return;
@@ -40,9 +41,8 @@ class questionView {
           element.classList.remove("bgcolor");
           element.classList.add("option-button");
         }
-
-        // element.disabled = true;
       });
+
       btn.classList.add("bgcolor");
       btn.classList.remove("option-button");
 
