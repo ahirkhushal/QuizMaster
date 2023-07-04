@@ -1,16 +1,7 @@
-class questionView {
-  _data;
+import { View } from "./View.js";
+
+class questionView extends View {
   _parentEl = document.querySelector(".question");
-  _btnSubmit = document.querySelector("#submit-btn");
-  _btnOption;
-
-  render(data) {
-    this._data = data;
-
-    const markup = this._generateMarkup();
-    this._parentEl.insertAdjacentHTML("afterbegin", markup);
-    this._btnOption = document.querySelector(".options");
-  }
 
   _generateMarkup() {
     return `<p class="questions"><span>(${this._data[0].questionNo}) </span> ${this._data[0].question}</p>
