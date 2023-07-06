@@ -2,7 +2,7 @@ import { View } from "./View.js";
 
 class questionView extends View {
   _parentEl = document.querySelector(".question");
-
+  _btnclickCount = 0;
   _generateMarkup() {
     return `<p class="questions"><span>(${this._data[0].questionNo}) </span> ${this._data[0].question}</p>
     <div class="options">
@@ -37,20 +37,29 @@ class questionView extends View {
       btn.classList.add("bgcolor");
       btn.classList.remove("option-button");
 
+      this._btnSubmit.disabled = false;
       this.addSubmitHandler(btn);
     });
   }
   addSubmitHandler(btn) {
     this._btnSubmit.addEventListener("click", () => {
+      this._btnSubmit.disabled = true;
+
       const textContent = btn.textContent.trim();
       const answer = textContent.slice(textContent.indexOf(" ") + 1);
+
+      if (this._data[0].answer === answer) {
+        this._btnclickCount++;
+      }
 
       Array.from(this._btnOption.children).forEach((el) => {
         if (this._data[0].answer === answer) {
           btn.style.backgroundColor = "blue";
           btn.style.color = "white";
+
           el.disabled = true;
         }
+
         if (
           this._data[0].answer !== answer &&
           btn.classList.contains("bgcolor")
@@ -73,7 +82,18 @@ class questionView extends View {
           el.disabled = true;
         }
       });
+
+      this.updateScore(btn);
     });
+  }
+
+  updateScore(btn) {
+    if (btn.textContent.trim().slice(2).trim() === this._data[0].answer) {
+      if (btn.style.backgroundColor !== "red") {
+        document.querySelector(".score").textContent =
+          this._btnclickCount + 1 - this._btnclickCount;
+      }
+    }
   }
 }
 
