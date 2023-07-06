@@ -80,7 +80,7 @@ h1 {
 #submit-btn[disabled],
 #next-btn[disabled] {
   background-color: #4caf50;
-  cursor: not-allowed;
+  cursor: none;
 }
 
 #submit-btn:hover,
