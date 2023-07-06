@@ -89,10 +89,11 @@ class questionView extends View {
 
   updateScore(btn) {
     if (btn.textContent.trim().slice(2).trim() === this._data[0].answer) {
-      if (btn.style.backgroundColor !== "red") {
-        document.querySelector(".score").textContent =
-          this._btnclickCount + 1 - this._btnclickCount;
-      }
+      document.querySelector(".score").textContent =
+        this._btnclickCount + 1 - this._btnclickCount;
+    } else {
+      document.querySelector(".score").textContent =
+        this._btnclickCount + 1 - this._btnclickCount - 1;
     }
   }
 }
