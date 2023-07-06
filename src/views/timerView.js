@@ -9,28 +9,47 @@ class timerView extends View {
   }
 
   _TimerMarkup() {
-    let timer = 60;
+    let timer = 7;
+    let timeoutId;
+    let bodyEl = document.body;
 
-    const updateTimer = function () {
-      const timerEl = document.querySelector("#timer");
+    const updateTimer = () => {
+      let timerEl = document.querySelector("#timer");
+
       timerEl.style.fontWeight = "Bold";
+
       if (timer <= 10) {
-        timerEl.classList.add("timer-blink");
+        bodyEl.classList.add("timer-blink");
         timerEl.style.fontWeight = "Bold";
-
-        if (timer < 0) {
-          timerEl.classList.remove("timer-blink");
-
-          return;
-        }
       }
+
+      if (timer < 0) {
+        bodyEl.classList.remove("timer-blink");
+        Array.from(this._btnOption.children).forEach((el) => {
+          el.disabled = true;
+        });
+        return;
+      }
+
       document.querySelector("#time-left").textContent = timer;
       timer--;
-      setTimeout(updateTimer, 1000);
     };
 
-    setTimeout(updateTimer, 0);
+    const checkButtonColor = () => {
+      const blueButton = Array.from(this._btnOption.children).find(
+        (el) => el.style.backgroundColor === "blue"
+      );
 
+      if (blueButton) {
+        clearTimeout(timeoutId);
+        bodyEl.classList.remove("timer-blink");
+      } else {
+        updateTimer();
+        timeoutId = setTimeout(checkButtonColor, 1000);
+      }
+    };
+
+    setTimeout(checkButtonColor, 0);
     return timer;
   }
 }
