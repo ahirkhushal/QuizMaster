@@ -9,7 +9,7 @@ class timerView extends View {
   }
 
   _TimerMarkup() {
-    let timer = 15;
+    let timer = 60;
 
     const updateTimer = function () {
       const timerEl = document.querySelector("#timer");
