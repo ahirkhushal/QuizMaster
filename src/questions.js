@@ -83,50 +83,42 @@ export const quizCompetitionstate = {
     },
     {
       questionNo: 11,
-      question: "What is the purpose of the JavaScript 'map()' method?",
-      options: [
-        "Iterates over an array and applies a function to each element",
-        "Checks if at least one element in an array satisfies a condition",
-        "Returns a new array containing elements that pass a condition",
-        "Reduces an array to a single value",
-      ],
-      answer: "Iterates over an array and applies a function to each element",
+      question:
+        "Which of the following is not a valid primitive data type in JavaScript?",
+      options: ["Number", "Boolean", "Array", "String"],
+      answer: "Array",
     },
     {
       questionNo: 12,
       question:
-        "What is the output of the following code? console.log(3 + 2 + '7');",
-      options: ["12", "327", "57", "37"],
-      answer: "57",
+        "What is the result of the following JavaScript expression? \n\ntypeof null",
+      options: ["null", "undefined", "object", "string"],
+      answer: "object",
     },
     {
       questionNo: 13,
       question:
-        "Which JavaScript method is used to remove the last element from an array?",
-      options: ["pop()", "shift()", "slice()", "reduce()"],
-      answer: "pop()",
+        "What is the output of the following JavaScript code?\n\nconsole.log(2 + '2' - 1);",
+      options: ["22", "21", "NaN", "3"],
+      answer: "21",
     },
     {
       questionNo: 14,
-      question: "What does the '!=='' operator in JavaScript mean?",
+      question: "What does the 'typeof' operator in JavaScript do?",
       options: [
-        "Not equal in value",
-        "Not equal in value and type",
-        "Equal in value",
-        "Equal in value and type",
+        "Returns the type of a variable or expression",
+        "Compares the equality of two values",
+        "Performs mathematical operations",
+        "Assigns a value to a variable",
       ],
-      answer: "Not equal in value and type",
+      answer: "Returns the type of a variable or expression",
     },
     {
       questionNo: 15,
-      question: "What is the purpose of the JavaScript 'map()' method?",
-      options: [
-        "Iterates over an array and applies a function to each element",
-        "Checks if at least one element in an array satisfies a condition",
-        "Returns a new array containing elements that pass a condition",
-        "Reduces an array to a single value",
-      ],
-      answer: "Iterates over an array and applies a function to each element",
+      question:
+        "Which of the following is NOT a valid way to declare a variable in JavaScript?",
+      options: ["let", "var", "const", "int"],
+      answer: "int",
     },
     {
       questionNo: 16,
@@ -213,4 +205,27 @@ export const quizCompetitionstate = {
       answer: "Both A and B",
     },
   ],
+};
+
+export const addnextQueHandler = function (questions, handler) {
+  let question;
+  const nxtbtn = document.querySelector("#next-btn");
+
+  let start = 0;
+  let end = 1;
+  nxtbtn.addEventListener("click", () => {
+    // debugger;
+    start++;
+    end++;
+
+    const [nxtquestion] = questions.slice(start, end);
+    if (!nxtquestion) return;
+    question = nxtquestion;
+
+    handler(nxtquestion);
+  });
+
+  if (!question) {
+    handler(questions[0]);
+  }
 };
