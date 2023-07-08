@@ -1,33 +1,33 @@
-import { quizCompetitionstate } from "./questions.js";
+import * as quizobj from "./questions.js";
 import questionView from "./views/questionView.js";
 import questionNoView from "./views/questionNoView.js";
 import timerView from "./views/timerView.js";
 import scoreView from "./views/scoreView.js";
+// import nextQuestion from "./views/nextQuestion.js";
 
-const { questions } = quizCompetitionstate;
-const controlQuestions = function () {
-  console.log(questions);
-  questionView.render(questions);
+// console.log(quizobj.quizCompetitionstate);
+const { questions } = quizobj.quizCompetitionstate;
+let questionNext;
+
+const controlQuestions = function (question) {
+  questionNext = question;
+  questionView.render(question, questions);
+  questionNoView.render(question, questions);
 };
 
-const controlQuestionNumber = function () {
-  questionNoView.render(questions);
+const controltimer = function (question) {
+  timerView.render(question, questions);
 };
 
-const controltimer = function () {
-  timerView.render(questions);
-};
-
-const controlScore = function () {
-  scoreView.render(questions);
+const controlScore = function (question) {
+  scoreView.render(question, questions);
 };
 
 const init = function () {
+  quizobj.addnextQueHandler(questions, controlQuestions);
   questionView.addselectButtonhandler(controlQuestions);
-  // scoreView.updater();
-  controlQuestionNumber();
-  controlScore();
-  controltimer();
+  controlScore(questionNext);
+  controltimer(questionNext);
 };
 
 init();

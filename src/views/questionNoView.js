@@ -5,8 +5,8 @@ class questionNoView extends View {
 
   _generateMarkup() {
     return `<p id="progress">
-  Question <span id="current-question">${this._data[0].questionNo}</span> of
-  <span id="total-questions">${this._data.length}</span>
+  Question <span id="current-question">${this._data.questionNo}</span> of
+  <span id="total-questions">${this._questions.length}</span>
 </p>`;
   }
 }

@@ -9,7 +9,7 @@ class timerView extends View {
   }
 
   _TimerMarkup() {
-    let timer = 7;
+    let timer = 60;
     let timeoutId;
     let bodyEl = document.body;
 
@@ -28,6 +28,7 @@ class timerView extends View {
         Array.from(this._btnOption.children).forEach((el) => {
           el.disabled = true;
         });
+        clearTimeout(timeoutId);
         return;
       }
 

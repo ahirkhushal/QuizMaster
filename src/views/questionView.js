@@ -3,36 +3,38 @@ import { View } from "./View.js";
 class questionView extends View {
   _parentEl = document.querySelector(".question");
   _btnclickCount = 0;
+  _btn;
   _generateMarkup() {
-    return `<p class="questions"><span>(${this._data[0].questionNo}) </span> ${this._data[0].question}</p>
+    return `<p class="questions"><span>(${this._data.questionNo}) </span> ${this._data.question}</p>
     <div class="options">
       <button class="option-button" id="option-1">
-        <span>A)</span> ${this._data[0].options[0]}
+        <span>A)</span> ${this._data.options[0]}
       </button>
       <button class="option-button" id="option-2">
-        <span>B)</span> ${this._data[0].options[1]}
+        <span>B)</span> ${this._data.options[1]}
       </button>
       <button class="option-button" id="option-3">
-        <span>C)</span> ${this._data[0].options[2]}
+        <span>C)</span> ${this._data.options[2]}
       </button>
       <button class="option-button" id="option-4">
-        <span>D)</span>  ${this._data[0].options[3]}
+        <span>D)</span>  ${this._data.options[3]}
       </button>
     </div>`;
   }
 
-  addselectButtonhandler(handler) {
-    handler();
+  addselectButtonhandler() {
     this._parentEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".option-button");
       if (!btn) return;
-
-      Array.from(this._btnOption.children).forEach((element) => {
-        if (element.classList.value === "bgcolor") {
-          element.classList.remove("bgcolor");
-          element.classList.add("option-button");
-        }
+      this._btn = btn;
+      const findedEl = Array.from(this._btnOption.children).find((element) => {
+        return element.classList.value === "bgcolor";
       });
+
+      if (findedEl) {
+        findedEl.classList.remove("bgcolor");
+        findedEl.classList.add("option-button");
+      }
 
       btn.classList.add("bgcolor");
       btn.classList.remove("option-button");
@@ -48,20 +50,19 @@ class questionView extends View {
       const textContent = btn.textContent.trim();
       const answer = textContent.slice(textContent.indexOf(" ") + 1);
 
-      if (this._data[0].answer === answer) {
+      if (this._data.answer === answer.trim()) {
         this._btnclickCount++;
       }
 
       Array.from(this._btnOption.children).forEach((el) => {
-        if (this._data[0].answer === answer) {
+        if (this._data.answer === answer.trim()) {
           btn.style.backgroundColor = "blue";
           btn.style.color = "white";
-
           el.disabled = true;
         }
 
         if (
-          this._data[0].answer !== answer &&
+          this._data.answer !== answer.trim() &&
           btn.classList.contains("bgcolor")
         ) {
           btn.style.backgroundColor = "red";
@@ -72,9 +73,11 @@ class questionView extends View {
           }, 500);
 
           const textContent = el.textContent.trim();
-          const answerEl = textContent.slice(textContent.indexOf(" ") + 1);
+          const answerEl = textContent
+            .slice(textContent.indexOf(" ") + 1)
+            .trim();
 
-          if (answerEl === this._data[0].answer) {
+          if (answerEl === this._data.answer) {
             el.style.backgroundColor = "blue";
             el.style.color = "white";
           }
@@ -82,18 +85,17 @@ class questionView extends View {
           el.disabled = true;
         }
       });
-
-      this.updateScore(btn);
+      // console.log(btn);
+      this.updateScore(this._btn);
     });
   }
 
   updateScore(btn) {
-    if (btn.textContent.trim().slice(2).trim() === this._data[0].answer) {
+    if (btn.textContent.trim().slice(2).trim() === this._data.answer) {
       document.querySelector(".score").textContent =
         this._btnclickCount + 1 - this._btnclickCount;
     } else {
-      document.querySelector(".score").textContent =
-        this._btnclickCount + 1 - this._btnclickCount - 1;
+      document.querySelector(".score").textContent;
     }
   }
 }
