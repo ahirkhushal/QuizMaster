@@ -3,7 +3,9 @@ import { View } from "./View.js";
 class questionView extends View {
   _parentEl = document.querySelector(".question");
   _btnclickCount = 0;
-  _btn;
+  _correctAnswersLogged = new Set();
+  _WrongAnswersLogged = new Set();
+
   _generateMarkup() {
     return `<p class="questions"><span>(${this._data.questionNo}) </span> ${this._data.question}</p>
     <div class="options">
@@ -26,7 +28,7 @@ class questionView extends View {
     this._parentEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".option-button");
       if (!btn) return;
-      this._btn = btn;
+
       const findedEl = Array.from(this._btnOption.children).find((element) => {
         return element.classList.value === "bgcolor";
       });
@@ -85,15 +87,29 @@ class questionView extends View {
           el.disabled = true;
         }
       });
-      // console.log(btn);
-      this.updateScore(this._btn);
+
+      this.updateScore(btn);
     });
   }
 
   updateScore(btn) {
     if (btn.textContent.trim().slice(2).trim() === this._data.answer) {
-      document.querySelector(".score").textContent =
-        this._btnclickCount + 1 - this._btnclickCount;
+      Array.from(this._btnOption.children).forEach((el) => {
+        if (!this._correctAnswersLogged.has(this._data.questionNo)) {
+          document.querySelector(".score").textContent++;
+          this._correctAnswersLogged.add(this._data.questionNo);
+        }
+
+        if (
+          el.classList.contains("bgcolor") &&
+          el.textContent.trim().slice(2).trim() !== this._data.answer
+        ) {
+          if (!this._WrongAnswersLogged.has(this._data.questionNo)) {
+            document.querySelector(".score").textContent--;
+            this._WrongAnswersLogged.add(this._data.questionNo);
+          }
+        }
+      });
     } else {
       document.querySelector(".score").textContent;
     }
