@@ -9,16 +9,16 @@ class questionView extends View {
   _generateMarkup() {
     return `<p class="questions"><span>(${this._data.questionNo}) </span> ${this._data.question}</p>
     <div class="options">
-      <button class="option-button" id="option-1">
+      <button class="option-button" id="option-1" style="font-weight: bold;">
         <span>A)</span> ${this._data.options[0]}
       </button>
-      <button class="option-button" id="option-2">
+      <button class="option-button" id="option-2" style="font-weight: bold;">
         <span>B)</span> ${this._data.options[1]}
       </button>
-      <button class="option-button" id="option-3">
+      <button class="option-button" id="option-3" style="font-weight: bold;" >
         <span>C)</span> ${this._data.options[2]}
       </button>
-      <button class="option-button" id="option-4">
+      <button class="option-button" id="option-4" style="font-weight: bold;">
         <span>D)</span>  ${this._data.options[3]}
       </button>
     </div>`;
