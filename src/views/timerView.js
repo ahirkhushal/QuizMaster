@@ -2,14 +2,13 @@ import { View } from "./View.js";
 
 class timerView extends View {
   _parentEl = document.querySelector(".timerContainer");
-  //   _time = document.querySelector("#time-left");
 
   _generateMarkup() {
     return ` <p id="timer">Time Left: <span id="time-left">${this._TimerMarkup()}</span> seconds</p>`;
   }
 
   _TimerMarkup() {
-    let timer = 60;
+    let timer = 15;
     let timeoutId;
     let bodyEl = document.body;
 
@@ -37,9 +36,9 @@ class timerView extends View {
     };
 
     const checkButtonColor = () => {
-      const blueButton = Array.from(this._btnOption.children).find(
-        (el) => el.style.backgroundColor === "blue"
-      );
+      const blueButton = Array.from(this._btnOption.children).find((el) => {
+        return el.style.backgroundColor === "blue";
+      });
 
       if (blueButton) {
         clearTimeout(timeoutId);
@@ -49,6 +48,17 @@ class timerView extends View {
         timeoutId = setTimeout(checkButtonColor, 1000);
       }
     };
+
+    const resetScore = function () {
+      timer = 15;
+      clearTimeout(timeoutId);
+      bodyEl.classList.remove("timer-blink");
+
+      updateTimer();
+      timeoutId = setTimeout(checkButtonColor, 1000);
+    };
+
+    document.querySelector("#next-btn").addEventListener("click", resetScore);
 
     setTimeout(checkButtonColor, 0);
     return timer;
